@@ -1,0 +1,53 @@
+.home-page-header {
+    background-image: url('https://picsum.photos/id/106/1200/800');
+    background-position: center;
+    background-size: cover;
+    border-radius: 0px;
+    padding: 150px 0px;
+}
+
+.home-page-header h1,
+.home-page-header p {
+    color: white;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.541);
+}
+
+.home-page-header h1 {
+    font-size: 50px;
+}
+
+.home-page-header p {
+    font-size: 18px;
+}
+
+.home-page-header a {
+    color: white;
+}
+
+.container>.row>.table>tbody>tr:hover {
+    background-color: #b9ddfa8a;
+}
+
+.pagination li a {
+    color: gray;
+}
+
+.pagination>.active>a {
+    color: white;
+    background-color: #e48279 !Important;
+    border: solid 1px #e48279 !Important;
+}
+
+.pagination>.fixed-item>a {
+    color: rgb(59, 59, 59);
+    background-color: #ffdbd7;
+}
+
+
+/* modal */
+
+#weather-icon {
+    font-size: 64px;
+    color: gray;
+    text-align: center;
+}

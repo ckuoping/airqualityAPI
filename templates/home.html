@@ -1,0 +1,106 @@
+{% extends "./shared/layout.html" %} {% block body %}
+<header class="jumbotron home-page-header">
+    <div class="container text-right">
+        <h1>臺灣空氣品質監測</h1>
+        <p>PM25 全國細懸浮微粒手動監測資料</p>
+        <a href="https://opendata.epa.gov.tw/api/index.html" class="btn btn-warning" target="_blank" rel="noopener">OpenAPI 連結</a>
+    </div>
+
+</header>
+<section>
+    <!-- content -->
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>地點</th>
+                        <th>日期</th>
+                        <th>PM25數值</th>
+                        <th>單位</th>
+                        <!-- <th>縣市</th> -->
+                    </tr>
+                </thead>
+                <tbody id="data-panel">
+                    {%for PM25 in PM25_list%}
+                    <tr data-toggle="modal" data-target="#show-data-modal">
+                        <td>{{PM25.name}}</td>
+                        <td>{{PM25.date}}</td>
+                        <td>{{PM25.data}}</td>
+                        <td>{{PM25.unit}}</td>
+                        <!-- <td>{{PM25.city}}</td> -->
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+
+        <nav class="mb-5" aria-label="Page navigation example ">
+            <ul class="pagination justify-content-center">
+                <li class="page-item fixed-item"><a class="page-link" href="/?page=1">第一頁</a></li>
+                {% if current_page !=1%}
+                <li class="page-item">
+                    <a class="page-link" href="/?page={{current_page-1}}">
+                        <i class="fas fa-angle-left"></i></a>
+                </li>
+                {%endif%}
+                <!--  -->
+                {%set pagination_start = current_page-4 if current_page-4>0 else 1 %}
+                <!--  -->
+                {%set pagination_end = current_page+4 if current_page+4
+                <last_page_no else last_page_no %} <!-- -->
+                    <!--  -->
+                    {%for page_no in range(pagination_start, pagination_end+1) %}
+
+                    <!--  -->
+                    {% set active_name = '' %}
+                    <!--  -->
+                    {% if current_page ==page_no %}
+                    <!--  -->
+                    {% set active_name = 'active' %}
+                    <!--  -->
+                    {% endif%}
+                    <li class="page-item {{active_name}} "><a class="page-link" href="/?page={{page_no}}">{{page_no}}</a></li>
+                    {%endfor%}
+                    <!--  -->
+                    {% if current_page !=last_page_no%}
+                    <li class="page-item"><a class="page-link" href="/?page={{current_page+1}}"><i class="fas fa-angle-right"></i></a></li>
+                    {%endif%}
+                    <li class="page-item fixed-item"><a class="page-link" href="/?page={{last_page_no}}">最後一頁</a></li>
+            </ul>
+        </nav>
+
+
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="show-data-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="show-data-title">Title觀測站</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="row d-flex align-items-center">
+                    <div class="col-8">
+                        <p id="show-data-data">濃度</p>
+                        <p id="show-data-date">日期</p>
+                        <!-- <p id="show-data-city">縣市</p> -->
+                    </div>
+                    <div id="weather-icon" class="col-4">
+                        <i class="fas fa-cloud-sun-rain"></i>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
